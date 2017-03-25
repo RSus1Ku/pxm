@@ -1,5 +1,7 @@
 package ximbalDAO;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,19 +15,31 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import miproyecto.ximbal2.Inicio;
+import miproyecto.ximbal2.MapsActivity;
+
 /**
  * Created by joseph on 07/03/2017.
  */
 
-public class Connexion {
+public class Connexion  {
+    Context contexto;
+    String consulta;
+    public String resul;
+    public Connexion(String consulta, Context context) {
+        this.consulta = consulta;
+        this.contexto = context;
+    }
 
-    /*String strAccion = "buscarTipoEstablecimientoMovil";
-    String strURL = "http://ximbal.somee.com/Services/WSDisfruta.asmx/";
-    String UrlWebService = strURL+strAccion+"?idtipoEstablecimiento="+""+"&nombre="+"";
-    new  Connexion().excure(UrlWebService);*/
+    public String Consultar()
+    {
+      new JSONTask().execute(consulta);
+       return  resul;
+    }
+
     public class JSONTask extends AsyncTask<String,String,String>
     {
-        public String resultadoConsulta;
+
         @Override
         protected String doInBackground(String... Parametros)
         {
@@ -45,6 +59,7 @@ public class Connexion {
                     buffer.append(Line);
                 }
                 return  buffer.toString();//Retorna Datos manupulables en onPostExecute
+
             }catch (MalformedURLException e)
             {
                 e.printStackTrace();
@@ -66,7 +81,6 @@ public class Connexion {
             return null;
 
         }
-
         @Override
         protected  void onPostExecute (String Resultado)
         {
@@ -74,7 +88,10 @@ public class Connexion {
             super.onPostExecute(Resultado);
             try{
                 Log.e("Salida", Resultado);
-                resultadoConsulta = Resultado;
+                Toast.makeText(contexto, Resultado,Toast.LENGTH_SHORT).show();
+                //Se mandan esos datos a otra actividad lista en formato string
+                //Intent i = new Intent(contexto, MapsActivity.class);
+
 
             }catch (Throwable t){
                 Log.e("Falla",t.toString());

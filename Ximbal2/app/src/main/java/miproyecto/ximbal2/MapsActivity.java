@@ -55,7 +55,7 @@ import ximbalBO.Rutas;
 import ximbalBO.ubicacion;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, DirectionFinderListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener, View.OnClickListener {
-    public static final int PERMISO = 1;
+    public static final int PERMISO = 0;
     private GoogleMap mMap;
     private Button btnFindPath;
     private Button btnIr;
@@ -85,6 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         Intent intent = getIntent();
         String Datos = intent.getStringExtra("ResultadosEnArray");
+
+
 
         try {
             ResultadosEnArray = new JSONArray(Datos);
@@ -116,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequest("");
+                sendRequest(etDestination.getText().toString());
             }
         });
 
@@ -231,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 tvTitulo.setText(nombres.get(i));
                 tvDescripcion.setText(descripcion.get(i));
                 tvDireccion.setText(direccion.get(i));
-                buscarImagen(ivImagen, "http://www.elpueblodechihuahua.com/img/notas/19096_c68020b955.jpg");
+                buscarImagen(ivImagen, "https://media-cdn.tripadvisor.com/media/photo-s/02/1c/fe/97/getlstd-property-photo.jpg");
                 encontrado = true;
             }
             if (encontrado == true)
@@ -312,7 +314,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             destinationMarkers.add(mMap.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker))
                     .title(route.endAddress)
-                    .position(route.endLocation)));
+                    .position(route.endLocation)
+                    .anchor(0.5f,0.5f)
+                   // .rotation(90.0f)
+            ));
 
             PolylineOptions polylineOptions = new PolylineOptions().
                     geodesic(true).

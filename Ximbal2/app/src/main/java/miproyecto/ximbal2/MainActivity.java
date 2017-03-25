@@ -33,6 +33,7 @@ import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 import com.nightonke.boommenu.Util;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -43,6 +44,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ximbalDAO.Connexion;
@@ -51,21 +53,32 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewForAnimation;
     private TextView textViewForButton;
     private BoomMenuButton bmb;
-    JSONArray ResultadosEnArray = null;
+    public String que;
+    JSONArray ResultadosEnArrayEstablecimientos = null;
+    JSONArray ResultadosEnArraySitios = null;
+
+    JSONArray ResultadosEnArray1 = null;
+    JSONArray ResultadosEnArray2= null;
+    JSONArray ResultadosEnArray3 = null;
+    JSONArray ResultadosEnArray4 = null;
+    JSONArray ResultadosEnArray5 = null;
+    JSONArray ResultadosEnArray6= null;
+  //  JSONArray[] arreglo = (JSONArray[]) new Object[6];
+    Object[] arreglo = new Object[6];
+    Object [] Datos = new String[6];
     private List<String> nombres = new ArrayList<>();
     private List<Integer> id = new ArrayList<>();
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
 
-
-        textViewForButton = (TextView) findViewById(R.id.p1);
-        textViewForAnimation = (TextView) findViewById(R.id.p2);
+       // textViewForButton = (TextView) findViewById(R.id.p1);
+       // textViewForAnimation = (TextView) findViewById(R.id.p2);
 
         bmb = (BoomMenuButton) findViewById(R.id.bmbFragment);
         assert bmb != null;
@@ -82,6 +95,17 @@ public class MainActivity extends AppCompatActivity {
                 // logic here
             }
         });
+        //  arreglo[0] = ResultadosEnArray1;
+        // arreglo[1] = ResultadosEnArray2;
+        // arreglo[2] = ResultadosEnArray3;
+        // arreglo[3] = ResultadosEnArray4;
+        // arreglo[4] = ResultadosEnArray5;
+        // arreglo[5] = ResultadosEnArray6
+
+        ConsultarSitios();//LLenar JSONArray de sitios
+        //ConsultarEstablecimientos();//LLenar JSONArray de establecimientos
+      //  DividirCategorias();//Una vez llenos hay que filtrarlos para poder ennviarlos luego en el boom
+
 
     }
 
@@ -118,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (index){
                             case 1:
-                               enviarDatos(1);
+                                IrActivityMap(1);
                                 break;
                             case 2:
-                                enviarDatos(2);
+
                                 break;
                             case 3:
-                                enviarDatos(3);
+
                                break;
                             case 4:
                                  break;
@@ -143,38 +167,103 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void BuscarTipoEstablecimiento(int tipo)
-    {
-        String strAccion = "buscarEstablecimientoMovil";
-        String strURL ="http://www.ximbal.somee.com/Services/ximbalMovil.asmx/";
-        String UrlWebService = strURL+strAccion+"?idTipoEstablecimiento="+0+"&nombre="+"" +"&id="+0;
-        new JSONTask().execute(UrlWebService);
 
-        progressDialog = new ProgressDialog (MainActivity.this);
-        progressDialog.setTitle("Buscando información");
-        progressDialog.setMessage("Por favor espere...");
-        progressDialog.show();
+//Busca en webservice los resultados de sitios disponibles Primera accion
+    public void ConsultarSitios() {
+        String parametros = "?nombre="+""+"&longitud="+"" +"&latitud="+"" +"&direccion="+""+ "&estatus="+"" + "&idEstablecimiento="+0+"&idsitio="+0;
+        que = "1";
+        enviarDatos("buscarSitioMovil", parametros);
     }
-    public void enviarDatos(int tipo)
+    //Busca en webservice los resultados de sitios disponibles
+    public void ConsultarEstablecimientos() {
+        String parametros = "?idTipoEstablecimiento="+0+"&nombre="+"" +"&id="+0;
+        que="2";
+            enviarDatos("buscarEstablecimientoMovil", parametros);
+    }
+    //Consulta en el webservices
+    public void enviarDatos(String Accion , String Parametros)
     {
-        String strAccion = "buscarSitioMovil";
         String strURL ="http://www.ximbal.somee.com/Services/ximbalMovil.asmx/";
-        String UrlWebService = strURL+strAccion+"?nombre="+""+"&longitud="+"" +"&latitud="+"" +"&direccion="+""+ "&estatus="+"" + "&idEstablecimiento="+tipo+"&idsitio="+0;
-        new JSONTask().execute(UrlWebService);
+        String UrlWebService = strURL+Accion+ Parametros;
+        if (que.equals("1")) {
+            new JSONTask().execute(UrlWebService);
+        }
+        else
+        {
+            new JSONTask().execute(UrlWebService);
+            progressDialog = new ProgressDialog (MainActivity.this);
+            progressDialog.setTitle("Buscando información");
+            progressDialog.setMessage("Por favor espere...");
+            progressDialog.show();
+        }
 
-        progressDialog = new ProgressDialog (MainActivity.this);
-        progressDialog.setTitle("Buscando información");
-        progressDialog.setMessage("Por favor espere...");
-        progressDialog.show();
     }
+
+    //LLenarArray
+    public  void LlenarArray(String Datos, JSONArray ResultadoArray)
+    {
+        try {
+            ResultadoArray = new JSONArray(Datos);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    //Despues de llenar los arrays hay que dividirlos en categorias que son las
+    //que se mostraran en los Booombotons Por eso vamos a dividirlos dependiendo su id
+    public void DividirCategorias()
+    {
+        String d1 = "" ,  d2 = "" ,  d3 = "",   d4 = "",  d5 = "",  d6 = "";
+
+        Datos[0] = d1;
+        Datos[1] = d1;
+        Datos[2] = d1;
+        Datos[3] = d1;
+        Datos[4] = d1;
+        Datos[5] = d1;
+
+        for (int i = 0 ; i < ResultadosEnArraySitios.length(); i++) {
+            JSONObject ObjetoSitio = null;
+            try {
+                ObjetoSitio = ResultadosEnArraySitios.getJSONObject(i);
+                for (int j = 0 ; j < ResultadosEnArraySitios.length(); j++)
+                {
+                    //divide las categorias por nombre (Se puede llenar un resultado con varios tipos de sitios)
+                    int id = ObjetoSitio.getInt("IdEstablecimiento");
+                    if (id == 1)
+                    {
+                      Datos[1] +=    ResultadosEnArraySitios.get(i).toString();
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        //Llena los respectivos arrays
+       for (int a = 0; a < arreglo.length; a++)
+       {
+           if (!Datos[a].equals("")) {
+               LlenarArray((String) Datos[a], (JSONArray) arreglo[a]);
+           }
+       }
+
+    }
+    public  void IrActivityMap(int boom)
+    {
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        //  i.putExtra("ResultadosEnArray",Resultado);
+        intent.putExtra("ResultadosEnArray", (String)Datos[boom]);
+    }
+
 
 
     public class JSONTask extends AsyncTask<String,String,String>
     {
-
         @Override
         protected String doInBackground(String... Parametros)
         {
+            //que = Parametros[1];
             HttpURLConnection conexion = null;
             BufferedReader reader = null;
             try
@@ -220,8 +309,22 @@ public class MainActivity extends AppCompatActivity {
             //Se obtinen los datos del resultaado
             super.onPostExecute(Resultado);
             try{
-                llenarArrayList(Resultado);
+         //       llenarArrayList(Resultado);
                 Log.e("Salida", Resultado);
+
+              //  if (que.equals("2"))
+               // {
+                    ResultadosEnArrayEstablecimientos= new JSONArray(Resultado);
+                    Toast.makeText(MainActivity.this, Resultado,Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+
+               // }
+               // else if (que.equals("1")) {
+               //      ResultadosEnArraySitios= new JSONArray(Resultado);
+               //      Toast.makeText(MainActivity.this, Resultado,Toast.LENGTH_LONG).show();
+               //  }
+
+              //  Toast.makeText(MainActivity.this, Resultado,Toast.LENGTH_LONG).show();
                // Toast.makeText(MainActivity.this, Resultado,Toast.LENGTH_SHORT).show();
                 //Se mandan esos datos a otra actividad lista en formato string
                // Intent i = new Intent(MainActivity.this, MapsActivity.class);
@@ -230,21 +333,75 @@ public class MainActivity extends AppCompatActivity {
             }catch (Throwable t){
                 Log.e("Falla",t.toString());
             }
-            progressDialog.dismiss();
         }
 
-        public void llenarArrayList( String Datos)
-        {
-            try {
-                ResultadosEnArray = new JSONArray(Datos);
-                for (int i = 0; i < ResultadosEnArray.length(); i++) {
-                    JSONObject Objeto = ResultadosEnArray.getJSONObject(i);
-                    nombres.add(Objeto.getString("Nombre"));
-                    id.add(Objeto.getInt("IdEstablecimiento"));
-                }
-            } catch (Exception e) {
-            }
 
-        }
     }
+
+/*    public class JSONTask2 extends AsyncTask<String,String,String>
+    {
+        @Override
+        protected String doInBackground(String... Parametros)
+        {
+            //que = Parametros[1];
+            HttpURLConnection conexion = null;
+            BufferedReader reader = null;
+            try
+            {
+                URL url = new URL(Parametros[0]);
+                conexion = (HttpURLConnection)url.openConnection();
+                conexion.connect();
+                InputStream stream = conexion.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+                String Line=""; //Lee linea por linea lo que devuelve el web service
+                while ((Line= reader.readLine()) != null)
+                {
+                    buffer.append(Line);
+                }
+                return  buffer.toString();//Retorna Datos manupulables en onPostExecute
+            }catch (MalformedURLException e)
+            {
+                e.printStackTrace();
+            }catch (IOException e){
+                e.printStackTrace();
+            }finally {
+                if (conexion!=null){
+                    conexion.disconnect();
+                }
+                try {
+                    if(reader!=null)
+                    {
+                        reader.close();
+                    }
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            return null;
+
+        }
+
+        @Override
+        protected  void onPostExecute (String Resultado)
+        {
+
+            //Se obtinen los datos del resultaado
+            super.onPostExecute(Resultado);
+            try{
+                //       llenarArrayList(Resultado);
+                Log.e("Salida", Resultado);
+
+
+                LlenarArray(Resultado, ResultadosEnArrayEstablecimientos);
+                //Toast.makeText(MainActivity.this, Resultado,Toast.LENGTH_LONG).show();
+
+
+            }catch (Throwable t){
+                Log.e("Falla",t.toString());
+            }
+        }
+
+
+    }*/
 }

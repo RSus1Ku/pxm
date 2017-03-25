@@ -13,19 +13,20 @@ import com.nightonke.boommenu.BoomButtons.TextOutsideCircleButton;
 
 public class BuilderManager {
     private static int[] imageResources = new int[]{
-            R.drawable.asistente,
-            R.drawable.baile,
-            R.drawable.restaurantes,
-            R.drawable.rutas,
-            R.drawable.eventos,
-            R.drawable.restaurantes,
-            R.drawable.cultura
+            R.drawable.persona,
+            R.drawable.copas,
+            R.drawable.nearme,
+            R.drawable.rutasmapa,
+            R.drawable.calendarioadmiracion,
+            R.drawable.comerdos,
+            R.drawable.sinagoga
 
     };
     private static String[] textos = new String[]{
+
             "Asistente",
             "Vida nocturna",
-            "Esquinas",
+            "¿que hay cerca de mi?",
             "Rutas",
             "Eventos",
             "¿Donde comer?",

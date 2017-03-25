@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="miproyecto.ximbal2.Inicio"
+    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_inicio" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contenedorRelative"
+        >
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textSize="17dp"
+            android:textColor="#000"
+            android:textColorHint="#918d86"
+            android:hint=" ¿Dónde quieres ir?"
+            android:id="@+id/etDonde"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
+            android:layout_weight="3"
+            android:background="#FFFFFF"
+            android:width="120dp"
+            />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <com.nightonke.boommenu.BoomMenuButton
+        android:id="@+id/bmbFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:bmb_boomEnum="boomParabola_2"
+        app:bmb_showRotateEaseEnum="outBack"
+        android:layout_gravity="center_vertical|start"
+        app:layout_anchor="@+id/etDonde"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="31dp"
+
+        app:layout_anchorGravity="top|end"
+        enumname="outElastic"
+        value="25"
+        app:bmb_showDelay="0"
+        app:bmb_showDuration="1000"
+        app:bmb_rotateDegree="1080"
+        app:bmb_hideDelay="0"
+        app:bmb_hideDuration="500"
+        app:bmb_frames="60"
+        />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_white_24dp"
+        app:layout_anchorGravity="top|end"
+        android:layout_marginLeft="294dp"
+        android:layout_marginTop="33dp"
+        />
+
+
+</android.support.design.widget.CoordinatorLayout>

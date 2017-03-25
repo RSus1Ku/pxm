@@ -10,4 +10,9 @@
     <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
     <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_inicio">Inicio</string>
+    <string name="title_activity_actividadrecycler">actividadrecycler</string>
+    <string name="title_activity_comentarios">comentariosActivity</string>
+    <string name="title_activity_pantalla_complet">PantallaComplet</string>
+    <string name="title_activity_descripcion_sitio">descripcionSitio</string>
 </resources>
