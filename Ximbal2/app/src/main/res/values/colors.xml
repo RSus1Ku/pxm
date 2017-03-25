@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00BCD4</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="transparente">#FFFFF0</color>
+    <color name="darkPrimary">#c1175a</color>
+    <color name="accentColor">#00bbd3</color>
+    <color name="primaryText">#202020</color>
+    <color name="secondaryText">#747474</color>
+    <color name="dividerColor">#bcbcbc</color>
+    <color name="textIcons">#fefefe</color>
+    <color name="ligthColor">#f7bacf</color>
+    <color name="ximbalAmarillo">#fab017</color>
+
+</resources>

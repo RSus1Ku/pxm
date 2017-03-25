@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Ximbal2</string>
+    <string name="action_settings">Settings</string>
+    <string name="fotos">Fotos</string>
+    <string name="inicio">Inicio</string>
+    <string name="favoritos">Favoritos</string>
+
+    <string name="text_inside_circle_button_text_normal">Text Inside Circle Button(Normal)</string>
+    <string name="text_outside_circle_button_text_normal">Text Outside Circle Button(Normal)</string>
+    <string name="text_ham_button_text_normal">Ham Button Text(Normal)</string>
+    <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

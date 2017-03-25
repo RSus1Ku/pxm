@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgPop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="2dip"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="gkdjsad"
+        />
+
+    <LinearLayout
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+           android:id="@+id/txtTitulo"
+            android:text="titulo"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/txtDescripcion"
+            android:text="Desccripcion"
+            android:textSize="10dp"
+            android:textStyle="normal"
+            android:layout_below="@+id/txtTitulo"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDirecccion"
+            android:text="Direccion"
+            android:layout_below="@+id/txtDescripcion"
+            android:textSize="10sp"
+
+            android:textStyle="italic"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ir"
+                android:id="@+id/btnMover"
+                android:layout_below="@+id/txtDirecccion"/>
+</RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

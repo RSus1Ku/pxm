@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:title="@string/fotos"
+        android:id="@+id/fotoItem"
+        android:icon="@drawable/ic_camera"/>
+    <item
+        android:id="@+id/inicioItem"
+        android:title="@string/inicio"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/favoritosItem"
+        android:title="@string/favoritos"
+        android:icon="@drawable/ic_favorite"/>
+</menu>
